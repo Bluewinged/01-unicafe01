@@ -4,47 +4,46 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
-const Statistics = (props) => (
-  <div>
-    {props.text} {props.value}
-  </div>
-);
+const Statistics = ({ good, neutral, bad }) => {
+  let all = good + neutral + bad;
+  let average = (good + neutral * 0 + bad * -1) / all;
+  let positive = (good / all) * 100 + " %";
+
+  console.log(all, average, positive);
+
+  if (good === 0 && neutral === 0 && bad === 0) {
+    return <p>No feedback given yet</p>;
+  }
+
+  return (
+    <p>
+      {Statistics.text} {Statistics.value}
+    </p>
+  );
+};
 
 const App = () => {
-  // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  /* const [all, setAll] = useState(0);
-  const [average, setAverage] = useState(0);
-*/
+
   const handleGoodClick = () => {
     console.log("good clicks", good);
     const updatedGood = good + 1;
     setGood(updatedGood);
-    // setAll(updatedGood + neutral + bad);
-    // setAverage(average + 1 / all);
   };
 
   const handleNeutralClick = () => {
     console.log("neutral clicks", neutral);
     const updatedNeutral = neutral + 1;
     setNeutral(updatedNeutral);
-    // setAll(good + updatedNeutral + bad);
-    // setAverage(average + 0 / all);
   };
 
   const handleBadClick = () => {
     console.log("bad clicks", bad);
     const updatedBad = bad + 1;
     setBad(updatedBad);
-    // setAll(good + neutral + updatedBad);
-    // setAverage(average - 1 / all);
   };
-
-  const all = good + neutral + bad;
-  const average = (good + neutral * 0 + bad * -1) / all;
-  const positive = (good / all) * 100 + " %";
 
   return (
     <div>
